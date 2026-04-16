@@ -519,7 +519,7 @@ private:
                     return;
                 boolean directed;
                 while(readgg(f, G, 0, &m, &n, &directed) != nullptr) {
-                    Nauty::get_container()->emplace(G, n, true);
+                    Nauty::get_container()->emplace(G, n, true, (bool)directed);
                 }
                 this->get_container()->set_over();
                 fclose(f);
@@ -540,7 +540,7 @@ private:
                 auto G{static_cast<graph*>(ALLOCS(m*n, sizeof(graph)))};
                 boolean directed;
                 while(readgg(f, G, 0, &m, &n, &directed) != nullptr) {
-                    Nauty::get_container()->emplace(G, n, true);
+                    Nauty::get_container()->emplace(G, n, true, (bool)directed);
                 }
                 this->get_container()->set_over();
                 FREES(G);

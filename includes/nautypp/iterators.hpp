@@ -204,6 +204,60 @@ private:
     Vertex v;
 };
 
+/// \class InNeighbourIterator
+/// \brief Iterator over in-neighbours (predecessors) of a vertex in a directed graph.
+///
+/// Iterates over all vertices `u` such that an arc `u → target` exists.
+class InNeighbourIterator {
+public:
+    InNeighbourIterator() = delete;
+    InNeighbourIterator(const Graph& G, Vertex target, bool end=false);
+
+    inline bool operator==(const InNeighbourIterator& other) const {
+        return u == other.u and target == other.target;
+    }
+    inline bool operator!=(const InNeighbourIterator& other) const {
+        return not (*this == other);
+    }
+    inline InNeighbourIterator& operator++() {
+        advance();
+        return *this;
+    }
+    inline Vertex operator*() const {
+        return u;
+    }
+private:
+    const Graph& graph;
+    Vertex target;
+    Vertex u;  ///< current in-neighbour (NO_VERTEX = end)
+
+    void advance();
+};
+
+/// \class InNeighbours
+/// \brief Iterable over all in-neighbours (predecessors) of a vertex.
+///
+/// See InNeighbourIterator and Graph::in_neighbours_of()
+class InNeighbours {
+public:
+    InNeighbours() = delete;
+    InNeighbours(const Graph& G, Vertex target):
+            graph{G}, target{target} {
+    }
+
+    inline InNeighbourIterator begin() const {
+        return {graph, target, false};
+    }
+    inline InNeighbourIterator end() const {
+        return {graph, target, true};
+    }
+
+    operator std::vector<Vertex>() const;
+private:
+    const Graph& graph;
+    Vertex target;
+};
+
 }
 
 #endif

@@ -21,7 +21,8 @@ void EdgeProperty::compute() {
     value = 0;
     for(size_t v{0}; v < graph->V(); ++v)
         value += graph->degree(v);
-    value >>= 1;  // sum(d(v)) == 2E
+    if(!graph->is_directed())
+        value >>= 1;  // sum(d(v)) == 2E for undirected
 }
 
 void _CliquerGraphProperty::compute() {
@@ -44,6 +45,11 @@ void ConnectedComponents::_run() {
             ++nb_components;
         }
     }
+}
+
+StronglyConnectedComponents::StronglyConnectedComponents(const Graph& graph):
+        G{graph}, ids(graph.V(), UNVISITED), nb_components{0} {
+    _run();
 }
 
 #ifdef OSTREAM_LL_GRAPH

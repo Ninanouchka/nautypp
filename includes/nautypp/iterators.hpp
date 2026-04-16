@@ -57,7 +57,7 @@ private:
     setword* gv;
 
     friend AllEdgeIterator;
-    inline void goto_afeter_v() {
+    inline void goto_after_v() {
         while(w != NO_VERTEX and w < v)
             ++*this;
     }

@@ -42,7 +42,7 @@ AllEdgeIterator::AllEdgeIterator(const Graph& G, bool end):
     if(it == it_end)
         next();
     else if(!G.is_directed())
-        it.goto_afeter_v();
+        it.goto_after_v();
 }
 
 void AllEdgeIterator::next() {
@@ -51,7 +51,7 @@ void AllEdgeIterator::next() {
         ++v;
         it = EdgeIterator(graph, v, false);
         if(!graph.is_directed())
-            it.goto_afeter_v();
+            it.goto_after_v();
         it_end = EdgeIterator(graph, v, true);
     }
 }
